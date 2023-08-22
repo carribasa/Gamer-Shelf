@@ -9,10 +9,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.optic.gamer_shelf.presentation.screens.login.LoginScreen
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.optic.gamer_shelf.presentation.navigation.AppNavigation
 import com.optic.gamer_shelf.presentation.ui.theme.GamerShelfTheme
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -21,7 +25,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginScreen()
+                    navController = rememberNavController()
+                    AppNavigation(navController = navController)
                 }
             }
         }
