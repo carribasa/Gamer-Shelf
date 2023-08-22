@@ -1,4 +1,4 @@
-package com.optic.gamer_shelf.screens.login.components
+package com.optic.gamer_shelf.presentation.screens.login.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -16,7 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.optic.gamer_shelf.ui.theme.GamerShelfTheme
+import com.optic.gamer_shelf.presentation.ui.theme.GamerShelfTheme
 
 @Composable
 fun LoginBottomBar() {

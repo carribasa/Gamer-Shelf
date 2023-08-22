@@ -1,45 +1,38 @@
-package com.optic.gamer_shelf.screens.login.components
+package com.optic.gamer_shelf.presentation.screens.login.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.optic.gamer_shelf.R
-import com.optic.gamer_shelf.ui.theme.Darkgray500
-import com.optic.gamer_shelf.ui.theme.GamerShelfTheme
-import com.optic.gamer_shelf.ui.theme.Red200
-import com.optic.gamer_shelf.ui.theme.Red500
+import com.optic.gamer_shelf.presentation.components.DefaultButton
+import com.optic.gamer_shelf.presentation.components.DefaultTextField
+import com.optic.gamer_shelf.presentation.ui.theme.Darkgray500
+import com.optic.gamer_shelf.presentation.ui.theme.GamerShelfTheme
+import com.optic.gamer_shelf.presentation.ui.theme.Red200
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,6 +74,12 @@ fun BoxHeader() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardForm() {
+    var email by remember {
+        mutableStateOf("")
+    }
+    var password by remember {
+        mutableStateOf("")
+    }
     Card(
         modifier = Modifier
             .padding(
@@ -112,47 +111,26 @@ fun CardForm() {
                 fontSize = 12.sp,
                 color = Color.Gray
             )
-            OutlinedTextField(
+            DefaultTextField(
                 modifier = Modifier.padding(top = 25.dp),
-                value = "",
-                onValueChange = { },
-                label = {
-                    Text(text = "Correo electrónico")
-                },
-                trailingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Email,
-                        contentDescription = "Icono email login",
-                    )
-                }
+                value = email,
+                onValueChange = { email = it },
+                label = "Email",
+                icon = Icons.Default.Email,
+                keyboardType = KeyboardType.Email
             )
-            Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextField(
-                value = "",
-                onValueChange = { },
-                label = {
-                    Text(text = "Contraseña")
-                },
-                trailingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Lock,
-                        contentDescription = "Icono contraseña login"
-                    )
-                }
+            DefaultTextField(
+                modifier = Modifier.padding(top = 5.dp),
+                value = password,
+                onValueChange = { password = it },
+                label = "Contraseña",
+                icon = Icons.Default.Lock,
+                hideText = true
             )
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 35.dp),
-                colors = ButtonDefaults.buttonColors(Red200),
-                onClick = { }) {
-                Icon(
-                    imageVector = Icons.Default.ArrowForward,
-                    contentDescription = "Icono flecha boton login"
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                Text(text = "INICIAR SESION")
-            }
+            DefaultButton(
+                text = "INICIAR SESION",
+                onClick = { }
+            )
         }
     }
 }

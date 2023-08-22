@@ -1,4 +1,4 @@
-package com.optic.gamer_shelf.ui.theme
+package com.optic.gamer_shelf.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
