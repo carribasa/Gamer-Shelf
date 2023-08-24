@@ -7,9 +7,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.optic.gamer_shelf.presentation.navigation.AppScreen
-import com.optic.gamer_shelf.presentation.ui.theme.GamerShelfTheme
+import com.optic.gamermvvmapp.presentation.ui.theme.GamerShelfTheme
 
 @Composable
 fun LoginBottomBar(navController: NavHostController) {
@@ -53,7 +53,7 @@ fun LoginBottomBar(navController: NavHostController) {
 fun PreviewBottomBar() {
     GamerShelfTheme(darkTheme = true) {
         Surface(
-            color = MaterialTheme.colorScheme.background
+            color = MaterialTheme.colors.background
         ) {
             LoginBottomBar(rememberNavController())
         }

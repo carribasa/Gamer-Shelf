@@ -1,13 +1,10 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.optic.gamer_shelf.presentation.screens.login
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,10 +12,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.optic.gamer_shelf.presentation.screens.login.components.LoginBottomBar
 import com.optic.gamer_shelf.presentation.screens.login.components.LoginContent
-import com.optic.gamer_shelf.presentation.ui.theme.GamerShelfTheme
+import com.optic.gamermvvmapp.presentation.ui.theme.GamerShelfTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun LoginScreen(navController: NavHostController) {
 
@@ -39,7 +35,7 @@ fun GreetingPreview() {
     GamerShelfTheme(darkTheme = true) {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
+            color = MaterialTheme.colors.background
         ) {
             LoginScreen(rememberNavController())
         }
