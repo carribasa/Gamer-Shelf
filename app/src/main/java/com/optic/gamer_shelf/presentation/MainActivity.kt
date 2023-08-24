@@ -11,8 +11,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.optic.gamer_shelf.presentation.navigation.AppNavigation
 import com.optic.gamermvvmapp.presentation.ui.theme.GamerShelfTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private lateinit var navController: NavHostController

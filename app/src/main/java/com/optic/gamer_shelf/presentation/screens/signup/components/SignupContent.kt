@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -33,6 +35,7 @@ import com.optic.gamer_shelf.R
 import com.optic.gamer_shelf.presentation.components.DefaultButton
 import com.optic.gamer_shelf.presentation.components.DefaultTextField
 import com.optic.gamermvvmapp.presentation.ui.theme.Darkgray500
+import com.optic.gamermvvmapp.presentation.ui.theme.GamerShelfTheme
 import com.optic.gamermvvmapp.presentation.ui.theme.Red200
 
 @Composable
@@ -154,8 +157,11 @@ fun CardForm() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoginContent() {
-
+    GamerShelfTheme(darkTheme = true) {
+        Surface(
+            color = MaterialTheme.colors.background
+        ) {
             SignupContent()
-
-
+        }
+    }
 }
