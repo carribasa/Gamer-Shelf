@@ -1,5 +1,6 @@
 package com.optic.gamer_shelf.presentation.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,19 +23,24 @@ fun DefaultButton(
     text: String,
     onClick: () -> Unit,
     color: Color = Red200,
-    icon: ImageVector = Icons.Default.ArrowForward
+    icon: ImageVector = Icons.Default.ArrowForward,
+    enabled: Boolean = true
 ) {
-    Button(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 35.dp),
-        colors = ButtonDefaults.buttonColors(color),
-        onClick = { onClick }) {
-        Icon(
-            imageVector = icon,
-            contentDescription = "Icono flecha boton"
-        )
-        Spacer(modifier = Modifier.width(10.dp))
-        Text(text = text)
+    Column {
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 35.dp),
+            colors = ButtonDefaults.buttonColors(color),
+            enabled = enabled,
+            onClick = { onClick }) {
+            Icon(
+                imageVector = icon,
+                contentDescription = "Icono flecha boton"
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(text = text)
+        }
     }
+
 }

@@ -96,7 +96,11 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
                     onValueChange = { viewModel.email.value = it },
                     label = "Email",
                     icon = Icons.Default.Email,
-                    keyboardType = KeyboardType.Email
+                    keyboardType = KeyboardType.Email,
+                    errorMsg = viewModel.emailErrMsg.value,
+                    validateField = {
+                        viewModel.validateEmail()
+                    }
                 )
                 DefaultTextField(
                     modifier = Modifier.padding(top = 5.dp),
@@ -104,14 +108,19 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
                     onValueChange = { viewModel.password.value = it },
                     label = "Contraseña",
                     icon = Icons.Default.Lock,
-                    hideText = true
+                    hideText = true,
+                    errorMsg = viewModel.passwordErrMsg.value,
+                    validateField = {
+                        viewModel.validatePassword()
+                    }
                 )
                 DefaultButton(
                     text = "INICIAR SESION",
                     onClick = {
                         Log.d("LoginContent", "Email: ${viewModel.email.value}")
                         Log.d("LoginContent", "Password: ${viewModel.password.value}")
-                    }
+                    },
+                    enabled = viewModel.isEnabledLoginButton
                 )
             }
         }
