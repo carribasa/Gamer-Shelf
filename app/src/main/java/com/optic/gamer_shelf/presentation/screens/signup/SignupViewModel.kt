@@ -1,4 +1,4 @@
-package com.optic.gamer_shelf.presentation.screens.login
+package com.optic.gamer_shelf.presentation.screens.signup
 
 import android.util.Patterns
 import androidx.compose.runtime.MutableState
@@ -8,22 +8,32 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor() : ViewModel() {
+class SignupViewModel @Inject constructor() : ViewModel() {
+
+    // USERNAME
+    var username: MutableState<String> = mutableStateOf("")
 
     // EMAIL
     var email: MutableState<String> = mutableStateOf("")
     var isEmailValid: MutableState<Boolean> = mutableStateOf(false)
     var emailErrMsg: MutableState<String> = mutableStateOf("")
 
+    // PASSWORD
     var password: MutableState<String> = mutableStateOf("")
     var isPasswordValid: MutableState<Boolean> = mutableStateOf(false)
     var passwordErrMsg: MutableState<String> = mutableStateOf("")
 
-    // BUTTON
-    var isEnabledLoginButton = false
+    // CONFIRM PASSWORD
+    var confirmPassword: MutableState<String> = mutableStateOf("")
+    var isSamePassword: MutableState<Boolean> = mutableStateOf(false)
+    var confirmPasswordErrMsg: MutableState<String> = mutableStateOf("")
 
-    fun enabledLoginButton() {
-        isEnabledLoginButton = isEmailValid.value && isPasswordValid.value
+    // BUTTON
+    var isEnabledSignupButton = false
+
+    fun enabledSignupButton() {
+        isEnabledSignupButton =
+            isEmailValid.value && isPasswordValid.value && isSamePassword.value
     }
 
     fun validateEmail() {
@@ -34,10 +44,10 @@ class LoginViewModel @Inject constructor() : ViewModel() {
             isEmailValid.value = false
             emailErrMsg.value = "El email no es valido"
         }
-        enabledLoginButton()
+        enabledSignupButton()
     }
 
-    fun validatePassword() {
+    fun validatePasswordLength() {
         if (password.value.length >= 6) {
             isPasswordValid.value = true
             passwordErrMsg.value = ""
@@ -45,6 +55,17 @@ class LoginViewModel @Inject constructor() : ViewModel() {
             isPasswordValid.value = false
             passwordErrMsg.value = "Al menos 6 caracteres"
         }
-        enabledLoginButton()
+        enabledSignupButton()
+    }
+
+    fun validateSamePassword() {
+        if (confirmPassword.value == password.value) {
+            isSamePassword.value = true
+            confirmPasswordErrMsg.value = ""
+        } else {
+            isSamePassword.value = false
+            confirmPasswordErrMsg.value = "La contraseña no coincide"
+        }
+        enabledSignupButton()
     }
 }

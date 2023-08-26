@@ -90,6 +90,7 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
                     fontSize = 12.sp,
                     color = Color.Gray
                 )
+                // Campo email
                 DefaultTextField(
                     modifier = Modifier.padding(top = 25.dp),
                     value = viewModel.email.value,
@@ -102,6 +103,7 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
                         viewModel.validateEmail()
                     }
                 )
+                // Campo contraseña
                 DefaultTextField(
                     modifier = Modifier.padding(top = 5.dp),
                     value = viewModel.password.value,
@@ -114,6 +116,7 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
                         viewModel.validatePassword()
                     }
                 )
+                // Boton Iniciar Sesion
                 DefaultButton(
                     text = "INICIAR SESION",
                     onClick = {
