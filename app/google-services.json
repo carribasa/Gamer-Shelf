@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1014331504489",
+    "project_id": "gamer-shelf-88e6c",
+    "storage_bucket": "gamer-shelf-88e6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014331504489:android:b0e37be79a315a1d3b6ff8",
+        "android_client_info": {
+          "package_name": "com.optic.gamer_shelf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014331504489-pj5tv7glclv5njd7gnl710adg1q050kg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt6v5TINv-NC6j_EDr-dF_beK2i2CZTjQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014331504489-pj5tv7glclv5njd7gnl710adg1q050kg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
