@@ -1,15 +1,17 @@
 package com.optic.gamer_shelf.presentation.screens.login.components
 
-import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -17,9 +19,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -28,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.optic.gamer_shelf.R
+import com.optic.gamer_shelf.domain.model.Response
 import com.optic.gamer_shelf.presentation.components.DefaultButton
 import com.optic.gamer_shelf.presentation.components.DefaultTextField
 import com.optic.gamer_shelf.presentation.screens.login.LoginViewModel
@@ -37,6 +42,9 @@ import com.optic.gamermvvmapp.presentation.ui.theme.Red200
 
 @Composable
 fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
+
+    val loginFlow = viewModel.loginFlow.collectAsState()
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -120,12 +128,31 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
                 DefaultButton(
                     text = "INICIAR SESION",
                     onClick = {
-                        Log.d("LoginContent", "Email: ${viewModel.email.value}")
-                        Log.d("LoginContent", "Password: ${viewModel.password.value}")
+                        viewModel.login()
                     },
                     enabled = viewModel.isEnabledLoginButton
                 )
             }
+        }
+    }
+    loginFlow.value.let {
+        when(it) {
+            // Mostrar que se esta realizando la peticion y todavia esta en proceso
+            Response.Loading -> {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+            is Response.Success -> {
+                Toast.makeText(LocalContext.current, "Usuario logeado", Toast.LENGTH_LONG).show()
+            }
+            is Response.Failure -> {
+                Toast.makeText(LocalContext.current, it.exception?.message ?:"Error desconocido", Toast.LENGTH_LONG).show()
+            }
+            else -> {}
         }
     }
 }

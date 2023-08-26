@@ -28,7 +28,7 @@ class SignupViewModel @Inject constructor() : ViewModel() {
     var isSamePassword: MutableState<Boolean> = mutableStateOf(false)
     var confirmPasswordErrMsg: MutableState<String> = mutableStateOf("")
 
-    // BUTTON
+    // ENABLE BUTTON
     var isEnabledSignupButton = false
 
     fun enabledSignupButton() {
