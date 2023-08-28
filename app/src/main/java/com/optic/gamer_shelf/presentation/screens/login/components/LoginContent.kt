@@ -12,13 +12,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,21 +26,21 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.optic.gamer_shelf.R
 import com.optic.gamer_shelf.domain.model.Response
 import com.optic.gamer_shelf.presentation.components.DefaultButton
 import com.optic.gamer_shelf.presentation.components.DefaultTextField
+import com.optic.gamer_shelf.presentation.navigation.AppScreen
 import com.optic.gamer_shelf.presentation.screens.login.LoginViewModel
 import com.optic.gamermvvmapp.presentation.ui.theme.Darkgray500
-import com.optic.gamermvvmapp.presentation.ui.theme.GamerShelfTheme
 import com.optic.gamermvvmapp.presentation.ui.theme.Red200
 
 @Composable
-fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
+fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
 
     val loginFlow = viewModel.loginFlow.collectAsState()
 
@@ -147,7 +146,12 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
                 }
             }
             is Response.Success -> {
-                Toast.makeText(LocalContext.current, "Usuario logeado", Toast.LENGTH_LONG).show()
+                LaunchedEffect(Unit) {
+                    navController.navigate(route = AppScreen.Profile.route) {
+                        // Eliminar historial de pantallas tras logout
+                        popUpTo(AppScreen.Login.route) { inclusive = true }
+                    }
+                }
             }
             is Response.Failure -> {
                 Toast.makeText(LocalContext.current, it.exception?.message ?:"Error desconocido", Toast.LENGTH_LONG).show()
@@ -157,14 +161,14 @@ fun LoginContent(viewModel: LoginViewModel = hiltViewModel()) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewLoginContent() {
-    GamerShelfTheme(darkTheme = true) {
-        Surface(
-            color = MaterialTheme.colors.background
-        ) {
-            LoginContent()
-        }
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewLoginContent() {
+//    GamerShelfTheme(darkTheme = true) {
+//        Surface(
+//            color = MaterialTheme.colors.background
+//        ) {
+//            LoginContent()
+//        }
+//    }
+//}

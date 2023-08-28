@@ -33,7 +33,7 @@ fun DefaultButton(
                 .padding(vertical = 35.dp),
             colors = ButtonDefaults.buttonColors(color),
             enabled = enabled,
-            onClick = { onClick }) {
+            onClick = { onClick() }) {
             Icon(
                 imageVector = icon,
                 contentDescription = "Icono flecha boton"
