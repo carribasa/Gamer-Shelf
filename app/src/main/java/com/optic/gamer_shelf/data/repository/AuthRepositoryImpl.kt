@@ -3,6 +3,7 @@ package com.optic.gamer_shelf.data.repository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.optic.gamer_shelf.domain.model.Response
+import com.optic.gamer_shelf.domain.model.User
 import com.optic.gamer_shelf.domain.repository.AuthRepository
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -14,6 +15,16 @@ class AuthRepositoryImpl @Inject constructor(private val firebaseAuth: FirebaseA
 
         return try {
             val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
+            Response.Success(result.user!!)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Response.Failure(e)
+        }
+    }
+
+    override suspend fun signUp(user: User): Response<FirebaseUser> {
+        return try {
+            val result = firebaseAuth.createUserWithEmailAndPassword(user.email, user.password).await()
             Response.Success(result.user!!)
         } catch (e: Exception) {
             e.printStackTrace()
