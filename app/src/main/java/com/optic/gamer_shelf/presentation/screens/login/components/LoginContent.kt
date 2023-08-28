@@ -125,6 +125,7 @@ fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = h
                 )
                 // Boton Iniciar Sesion
                 DefaultButton(
+                    modifier = Modifier,
                     text = "INICIAR SESION",
                     onClick = {
                         viewModel.login()

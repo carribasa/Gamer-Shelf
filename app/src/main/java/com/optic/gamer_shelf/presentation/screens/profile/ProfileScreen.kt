@@ -11,8 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.optic.gamer_shelf.presentation.components.DefaultButton
-import com.optic.gamer_shelf.presentation.navigation.AppScreen
+import com.optic.gamer_shelf.presentation.screens.profile.components.ProfileContent
 import com.optic.gamermvvmapp.presentation.ui.theme.GamerShelfTheme
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -22,16 +21,7 @@ fun ProfileScreen(navController: NavHostController, viewModel: ProfileViewModel 
     Scaffold(
         topBar = {},
         content = {
-            DefaultButton(
-                text = "Cerrar sesion",
-                onClick = {
-                    viewModel.logout()
-                    navController.navigate(route = AppScreen.Login.route) {
-                        // Eliminar historial de pantallas tras logout
-                        popUpTo(AppScreen.Profile.route) { inclusive = true }
-                    }
-                }
-            )
+            ProfileContent(navController)
         },
         bottomBar = {}
     )
