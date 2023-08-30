@@ -147,7 +147,9 @@ fun SignupContent(navController: NavHostController, viewModel: SignupViewModel =
                 )
                 // Boton Registrarse
                 DefaultButton(
-                    modifier = Modifier,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 20.dp),
                     text = "REGISTRARSE",
                     onClick = { viewModel.onSignup() },
                     enabled = viewModel.isEnabledSignupButton

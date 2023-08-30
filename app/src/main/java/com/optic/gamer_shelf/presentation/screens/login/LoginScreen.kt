@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.optic.gamer_shelf.presentation.screens.login.components.Login
 import com.optic.gamer_shelf.presentation.screens.login.components.LoginBottomBar
 import com.optic.gamer_shelf.presentation.screens.login.components.LoginContent
 import com.optic.gamermvvmapp.presentation.ui.theme.GamerShelfTheme
@@ -27,6 +28,8 @@ fun LoginScreen(navController: NavHostController) {
             LoginBottomBar(navController)
         }
     )
+    // MANEJAR ESTADO DE LA PETICION DE LOGIN
+    Login(navController = navController)
 }
 
 @Preview(showBackground = true, showSystemUi = true)

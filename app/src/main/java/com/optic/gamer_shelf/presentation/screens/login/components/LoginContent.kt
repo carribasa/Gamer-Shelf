@@ -1,28 +1,22 @@
 package com.optic.gamer_shelf.presentation.screens.login.components
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -31,10 +25,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.optic.gamer_shelf.R
-import com.optic.gamer_shelf.domain.model.Response
 import com.optic.gamer_shelf.presentation.components.DefaultButton
 import com.optic.gamer_shelf.presentation.components.DefaultTextField
-import com.optic.gamer_shelf.presentation.navigation.AppScreen
 import com.optic.gamer_shelf.presentation.screens.login.LoginViewModel
 import com.optic.gamermvvmapp.presentation.ui.theme.Darkgray500
 import com.optic.gamermvvmapp.presentation.ui.theme.Red200
@@ -42,7 +34,7 @@ import com.optic.gamermvvmapp.presentation.ui.theme.Red200
 @Composable
 fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
 
-    val loginFlow = viewModel.loginFlow.collectAsState()
+    val state = viewModel.state
 
     Box(
         modifier = Modifier
@@ -100,12 +92,12 @@ fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = h
                 // Campo email
                 DefaultTextField(
                     modifier = Modifier.padding(top = 25.dp),
-                    value = viewModel.email.value,
-                    onValueChange = { viewModel.email.value = it },
+                    value = state.email,
+                    onValueChange = { viewModel.onEmailInput(it) },
                     label = "Email",
                     icon = Icons.Default.Email,
                     keyboardType = KeyboardType.Email,
-                    errorMsg = viewModel.emailErrMsg.value,
+                    errorMsg = viewModel.emailErrMsg,
                     validateField = {
                         viewModel.validateEmail()
                     }
@@ -113,19 +105,21 @@ fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = h
                 // Campo contraseña
                 DefaultTextField(
                     modifier = Modifier.padding(top = 5.dp),
-                    value = viewModel.password.value,
-                    onValueChange = { viewModel.password.value = it },
+                    value = state.password,
+                    onValueChange = { viewModel.onPasswordInput(it) },
                     label = "Contraseña",
                     icon = Icons.Default.Lock,
                     hideText = true,
-                    errorMsg = viewModel.passwordErrMsg.value,
+                    errorMsg = viewModel.passwordErrMsg,
                     validateField = {
                         viewModel.validatePassword()
                     }
                 )
                 // Boton Iniciar Sesion
                 DefaultButton(
-                    modifier = Modifier,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 30.dp),
                     text = "INICIAR SESION",
                     onClick = {
                         viewModel.login()
@@ -133,31 +127,6 @@ fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = h
                     enabled = viewModel.isEnabledLoginButton
                 )
             }
-        }
-    }
-    loginFlow.value.let {
-        when(it) {
-            // Mostrar que se esta realizando la peticion y todavia esta en proceso
-            Response.Loading -> {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    CircularProgressIndicator()
-                }
-            }
-            is Response.Success -> {
-                LaunchedEffect(Unit) {
-                    navController.navigate(route = AppScreen.Profile.route) {
-                        // Eliminar historial de pantallas tras logout
-                        popUpTo(AppScreen.Login.route) { inclusive = true }
-                    }
-                }
-            }
-            is Response.Failure -> {
-                Toast.makeText(LocalContext.current, it.exception?.message ?:"Error desconocido", Toast.LENGTH_LONG).show()
-            }
-            else -> {}
         }
     }
 }
