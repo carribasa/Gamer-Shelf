@@ -1,8 +1,9 @@
 package com.optic.gamer_shelf.presentation.screens.signup
 
 import android.util.Patterns
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseUser
@@ -11,43 +12,68 @@ import com.optic.gamer_shelf.domain.model.User
 import com.optic.gamer_shelf.domain.use_cases.auth.AuthUseCases
 import com.optic.gamer_shelf.domain.use_cases.users.UsersUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignupViewModel @Inject constructor(private val authUseCases: AuthUseCases, private val usersUseCases: UsersUseCases) : ViewModel() {
+class SignupViewModel @Inject constructor(private val authUseCases: AuthUseCases, private val usersUseCases: UsersUseCases): ViewModel() {
+
+    // STATE FORM
+    var state by mutableStateOf(SignupState())
+        private set
 
     // USERNAME
-    var username: MutableState<String> = mutableStateOf("")
+    var isUsernameValid by mutableStateOf(false)
+        private set
+    var usernameErrMsg by mutableStateOf("")
+        private set
 
     // EMAIL
-    var email: MutableState<String> = mutableStateOf("")
-    var isEmailValid: MutableState<Boolean> = mutableStateOf(false)
-    var emailErrMsg: MutableState<String> = mutableStateOf("")
+    var isEmailValid by mutableStateOf(false)
+        private set
+    var emailErrMsg by mutableStateOf("")
+        private set
 
     // PASSWORD
-    var password: MutableState<String> = mutableStateOf("")
-    var isPasswordValid: MutableState<Boolean> = mutableStateOf(false)
-    var passwordErrMsg: MutableState<String> = mutableStateOf("")
+    var isPasswordValid by mutableStateOf(false)
+        private set
+    var passwordErrMsg by mutableStateOf("")
+        private set
 
-    // CONFIRM PASSWORD
-    var confirmPassword: MutableState<String> = mutableStateOf("")
-    var isSamePassword: MutableState<Boolean> = mutableStateOf(false)
-    var confirmPasswordErrMsg: MutableState<String> = mutableStateOf("")
+    // CONFIRMAR CONTRASENA
+    var isconfirmPassword by mutableStateOf(false)
+        private set
+    var confirmPasswordErrMsg by mutableStateOf("")
+        private set
 
     // ENABLE BUTTON
-    var isEnabledSignupButton = false
+    var isEnabledLoginButton = false
 
-    private val _signupFlow = MutableStateFlow<Response<FirebaseUser>?>(null)
-    val signupFlow: StateFlow<Response<FirebaseUser>?> = _signupFlow
+    var signupResponse by mutableStateOf<Response<FirebaseUser>?>(null)
+        private set
 
     var user = User()
+
+    fun onEmailInput(email: String) {
+        state = state.copy(email = email)
+    }
+
+    fun onUsernameInput(username: String) {
+        state = state.copy(username = username)
+    }
+
+    fun onPasswordInput(password: String) {
+        state = state.copy(password = password)
+    }
+
+    fun onConfirmPasswordInput(confirmPassword: String) {
+        state = state.copy(confirmPassword = confirmPassword)
+    }
+
     fun onSignup() {
-        user.username = username.value
-        user.email = email.value
-        user.password = password.value
+        user.username = state.username
+        user.email = state.email
+        user.password = state.password
         signup(user)
     }
 
@@ -57,46 +83,68 @@ class SignupViewModel @Inject constructor(private val authUseCases: AuthUseCases
     }
 
     fun signup(user: User) = viewModelScope.launch {
-        _signupFlow.value = Response.Loading
+        signupResponse = Response.Loading
         val result = authUseCases.signup(user)
-        _signupFlow.value = result
+        signupResponse = result
     }
 
-    fun enabledSignupButton() {
-        isEnabledSignupButton =
-            isEmailValid.value && isPasswordValid.value && isSamePassword.value
+    fun enabledLoginButton() {
+        isEnabledLoginButton =
+            isEmailValid &&
+                    isPasswordValid &&
+                    isUsernameValid &&
+                    isconfirmPassword
+    }
+
+    fun validateConfirmPassword() {
+        if (state.password == state.confirmPassword) {
+            isconfirmPassword = true
+            confirmPasswordErrMsg = ""
+        }
+        else {
+            isconfirmPassword = false
+            confirmPasswordErrMsg = "Las contraseñas no coinciden"
+        }
+        enabledLoginButton()
+    }
+
+    fun validateUsername() {
+        if (state.username.length >= 5) {
+            isUsernameValid = true
+            usernameErrMsg = ""
+        }
+        else {
+            isUsernameValid = false
+            usernameErrMsg = "Al menos 5 caracteres"
+        }
+
+        enabledLoginButton()
     }
 
     fun validateEmail() {
-        if (Patterns.EMAIL_ADDRESS.matcher(email.value).matches()) {
-            isEmailValid.value = true
-            emailErrMsg.value = ""
-        } else {
-            isEmailValid.value = false
-            emailErrMsg.value = "El email no es valido"
+        // ES UN EMAIL VALIDO
+        if (Patterns.EMAIL_ADDRESS.matcher(state.email).matches()) {
+            isEmailValid = true
+            emailErrMsg = ""
         }
-        enabledSignupButton()
+        else {
+            isEmailValid = false
+            emailErrMsg = "El email no es valido"
+        }
+
+        enabledLoginButton()
     }
 
-    fun validatePasswordLength() {
-        if (password.value.length >= 6) {
-            isPasswordValid.value = true
-            passwordErrMsg.value = ""
-        } else {
-            isPasswordValid.value = false
-            passwordErrMsg.value = "Al menos 6 caracteres"
+    fun validatePassword() {
+        if (state.password.length >= 6) {
+            isPasswordValid = true
+            passwordErrMsg = ""
         }
-        enabledSignupButton()
-    }
+        else {
+            isPasswordValid = false
+            passwordErrMsg = "Al menos 6 caracteres"
+        }
 
-    fun validateSamePassword() {
-        if (confirmPassword.value == password.value) {
-            isSamePassword.value = true
-            confirmPasswordErrMsg.value = ""
-        } else {
-            isSamePassword.value = false
-            confirmPasswordErrMsg.value = "La contraseña no coincide"
-        }
-        enabledSignupButton()
+        enabledLoginButton()
     }
 }

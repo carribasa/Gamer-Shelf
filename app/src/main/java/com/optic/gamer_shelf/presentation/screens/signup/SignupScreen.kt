@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.optic.gamer_shelf.presentation.components.DefaultTopBar
+import com.optic.gamer_shelf.presentation.screens.signup.components.SignUp
 import com.optic.gamer_shelf.presentation.screens.signup.components.SignupContent
 import com.optic.gamermvvmapp.presentation.ui.theme.GamerShelfTheme
 
@@ -31,6 +32,7 @@ fun SignupScreen(navController: NavHostController) {
         },
         bottomBar = {}
     )
+    SignUp(navController = navController)
 }
 
 @Preview(showBackground = true, showSystemUi = true)
