@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,7 +31,10 @@ import com.optic.gamer_shelf.presentation.navigation.AppScreen
 import com.optic.gamer_shelf.presentation.screens.profile.ProfileViewModel
 
 @Composable
-fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel = hiltViewModel()) {
+fun ProfileContent(
+    navController: NavHostController,
+    viewModel: ProfileViewModel = hiltViewModel()
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -53,7 +57,8 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                 Text(
                     text = "Bienvenido",
                     fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold)
+                    fontWeight = FontWeight.Bold
+                )
                 Spacer(modifier = Modifier.height(55.dp))
                 Image(
                     modifier = Modifier.size(115.dp),
@@ -81,12 +86,14 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
             color = Color.White,
             icon = Icons.Default.Edit,
             onClick = {
+                navController.navigate(AppScreen.ProfileEdit.route)
             }
         )
         Spacer(modifier = Modifier.height(10.dp))
         DefaultButton(
             modifier = Modifier.width(250.dp),
             text = "Cerrar sesion",
+            icon = Icons.Default.ArrowBack,
             onClick = {
                 viewModel.logout()
                 navController.navigate(route = AppScreen.Login.route) {
