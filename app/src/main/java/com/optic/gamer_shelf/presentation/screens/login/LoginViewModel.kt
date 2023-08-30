@@ -22,11 +22,15 @@ class LoginViewModel @Inject constructor(private val authUseCases: AuthUseCases)
 
     // EMAIL
     var isEmailValid: Boolean by mutableStateOf(false)
+        private set
     var emailErrMsg: String by mutableStateOf("")
+        private set
 
     // PASSWORD
     var isPasswordValid: Boolean by mutableStateOf(false)
+        private set
     var passwordErrMsg: String by mutableStateOf("")
+        private set
 
     // ENABLE BUTTON
     var isEnabledLoginButton = false
@@ -36,6 +40,7 @@ class LoginViewModel @Inject constructor(private val authUseCases: AuthUseCases)
 
    // LOGIN RESPONSE
     var loginResponse by mutableStateOf<Response<FirebaseUser>?>(null)
+       private set
 
     val currentUser = authUseCases.getCurrentUser()
 
