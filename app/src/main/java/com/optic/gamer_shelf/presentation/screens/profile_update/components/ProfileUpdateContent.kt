@@ -16,6 +16,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,6 +31,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.optic.gamer_shelf.R
+import com.optic.gamer_shelf.presentation.DialogCapturePicture
 import com.optic.gamer_shelf.presentation.components.DefaultButton
 import com.optic.gamer_shelf.presentation.components.DefaultTextField
 import com.optic.gamer_shelf.presentation.screens.profile_update.ProfileUpdateViewModel
@@ -43,6 +46,15 @@ fun ProfileUpdateContent(
 
     val state = viewModel.state
     viewModel.resultingActivityHandler.handle()
+    var dialogState = remember {
+        mutableStateOf(false)
+    }
+
+    DialogCapturePicture(
+        status = dialogState,
+        takePhoto = { viewModel.takePhoto() },
+        pickImage = { viewModel.pickImage() }
+    )
 
     Box(
         modifier = Modifier
@@ -64,7 +76,10 @@ fun ProfileUpdateContent(
                         modifier = Modifier
                             .width(100.dp)
                             .height(100.dp)
-                            .clip(CircleShape),
+                            .clip(CircleShape)
+                            .clickable {
+                                dialogState.value = true
+                            },
                         model = viewModel.imageUri,
                         contentDescription = "Imagen seleccionada",
                         contentScale = ContentScale.Crop
@@ -74,7 +89,7 @@ fun ProfileUpdateContent(
                         modifier = Modifier
                             .height(120.dp)
                             .clickable {
-                                viewModel.takePhoto()
+                                dialogState.value = true
                             },
                         painter = painterResource(id = R.drawable.user),
                         contentDescription = "Imagen de usuario"

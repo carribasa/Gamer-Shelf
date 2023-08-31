@@ -52,12 +52,16 @@ class ProfileUpdateViewModel @Inject constructor(
 
     fun pickImage() = viewModelScope.launch {
         val result = resultingActivityHandler.getContent("image/*")
-        imageUri = result.toString()
+        if (result != null) {
+            imageUri = result.toString()
+        }
     }
 
     fun takePhoto() = viewModelScope.launch {
         val result = resultingActivityHandler.takePicturePreview()
-        imageUri = ComposeFileProvider.getPathFromBitmap(context, result!!)
+        if (result != null) {
+            imageUri = ComposeFileProvider.getPathFromBitmap(context, result)
+        }
     }
 
     fun onUpdate() {
