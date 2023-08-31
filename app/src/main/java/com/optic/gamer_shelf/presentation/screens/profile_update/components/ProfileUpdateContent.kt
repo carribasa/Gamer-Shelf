@@ -1,7 +1,5 @@
 package com.optic.gamer_shelf.presentation.screens.profile_update.components
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -11,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -21,7 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -33,7 +32,6 @@ import com.optic.gamer_shelf.R
 import com.optic.gamer_shelf.presentation.components.DefaultButton
 import com.optic.gamer_shelf.presentation.components.DefaultTextField
 import com.optic.gamer_shelf.presentation.screens.profile_update.ProfileUpdateViewModel
-import com.optic.gamer_shelf.presentation.utils.ComposeFileProvider
 import com.optic.gamermvvmapp.presentation.ui.theme.Darkgray500
 import com.optic.gamermvvmapp.presentation.ui.theme.Red500
 
@@ -44,22 +42,7 @@ fun ProfileUpdateContent(
 ) {
 
     val state = viewModel.state
-
-    val imagePicker = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent(),
-        onResult = { uri ->
-            uri?.let { viewModel.onGalleryResult(it) }
-        }
-    )
-
-    val cameraLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.TakePicture(),
-        onResult = { hasImage ->
-            viewModel.onCameraResult(hasImage)
-        }
-    )
-
-    val context = LocalContext.current
+    viewModel.resultingActivityHandler.handle()
 
     Box(
         modifier = Modifier
@@ -76,23 +59,22 @@ fun ProfileUpdateContent(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.height(30.dp))
-                if (viewModel.hasImage && viewModel.imageUri != null) {
+                if (viewModel.imageUri != "") {
                     AsyncImage(
                         modifier = Modifier
+                            .width(100.dp)
                             .height(100.dp)
                             .clip(CircleShape),
                         model = viewModel.imageUri,
-                        contentDescription = "Imagen seleccionada"
+                        contentDescription = "Imagen seleccionada",
+                        contentScale = ContentScale.Crop
                     )
                 } else {
                     Image(
                         modifier = Modifier
                             .height(120.dp)
                             .clickable {
-//                                imagePicker.launch("image/*")
-                                val uri = ComposeFileProvider.getImageUri(context)
-                                viewModel.imageUri = uri
-                                cameraLauncher.launch(uri)
+                                viewModel.takePhoto()
                             },
                         painter = painterResource(id = R.drawable.user),
                         contentDescription = "Imagen de usuario"
