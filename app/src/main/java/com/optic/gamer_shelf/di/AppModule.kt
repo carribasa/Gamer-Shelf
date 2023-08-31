@@ -26,6 +26,7 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 @Module
 object AppModule {
+
     @Provides
     fun provideFirebaseFirestore(): FirebaseFirestore = Firebase.firestore
 
@@ -50,9 +51,8 @@ object AppModule {
     )
 
     @Provides
-    fun provideUserUseCases(repository: UsersRepository) = UsersUseCases(
+    fun provideUsersUseCases(repository: UsersRepository) = UsersUseCases(
         create = Create(repository),
         getUserById = GetUserById(repository)
     )
-
 }

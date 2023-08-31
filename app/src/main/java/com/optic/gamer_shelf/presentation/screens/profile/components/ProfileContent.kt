@@ -86,7 +86,8 @@ fun ProfileContent(
             color = Color.White,
             icon = Icons.Default.Edit,
             onClick = {
-                navController.navigate(AppScreen.ProfileEdit.route)
+                navController.navigate(
+                    route = AppScreen.ProfileEdit.passUser(viewModel.userData.toJson()))
             }
         )
         Spacer(modifier = Modifier.height(10.dp))

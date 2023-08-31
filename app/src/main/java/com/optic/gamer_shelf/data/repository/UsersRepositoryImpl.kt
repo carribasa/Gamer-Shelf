@@ -31,7 +31,7 @@ class UsersRepositoryImpl @Inject constructor(private val usersRef: CollectionRe
             trySend(user)
         }
         awaitClose {
-         snapshotListener.remove()
+            snapshotListener.remove()
         }
     }
 
