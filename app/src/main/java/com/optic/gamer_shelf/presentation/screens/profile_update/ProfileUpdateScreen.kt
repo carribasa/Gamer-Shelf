@@ -1,4 +1,4 @@
-package com.optic.gamer_shelf.presentation.screens.profile_edit
+package com.optic.gamer_shelf.presentation.screens.profile_update
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -6,7 +6,8 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.optic.gamer_shelf.presentation.components.DefaultTopBar
-import com.optic.gamer_shelf.presentation.screens.profile_edit.components.ProfileEditContent
+import com.optic.gamer_shelf.presentation.screens.profile_update.components.ProfileUpdate
+import com.optic.gamer_shelf.presentation.screens.profile_update.components.ProfileUpdateContent
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -24,8 +25,9 @@ fun ProfileEditScreen(
             )
         },
         content = {
-            ProfileEditContent(navController)
+            ProfileUpdateContent(navController)
         },
         bottomBar = {}
     )
+    ProfileUpdate()
 }

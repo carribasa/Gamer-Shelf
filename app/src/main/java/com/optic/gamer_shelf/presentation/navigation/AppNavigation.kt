@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.optic.gamer_shelf.presentation.screens.login.LoginScreen
 import com.optic.gamer_shelf.presentation.screens.profile.ProfileScreen
-import com.optic.gamer_shelf.presentation.screens.profile_edit.ProfileEditScreen
+import com.optic.gamer_shelf.presentation.screens.profile_update.ProfileEditScreen
 import com.optic.gamer_shelf.presentation.screens.signup.SignupScreen
 
 @Composable

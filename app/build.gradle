@@ -85,6 +85,9 @@ dependencies {
 
     // GSON
     implementation 'com.google.code.gson:gson:2.9.0'
+
+    // ASYNC IMAGE
+    implementation("io.coil-kt:coil-compose:2.2.2")
 }
 
 kapt {
