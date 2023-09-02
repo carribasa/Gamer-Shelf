@@ -15,6 +15,7 @@ import com.optic.gamer_shelf.presentation.utils.ResultingActivityHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,35 +40,50 @@ class ProfileUpdateViewModel @Inject constructor(
     var updateResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
 
-    // IMAGE
-    var imageUri by mutableStateOf("")
+    var saveImageResponse by mutableStateOf<Response<String>?>(null)
+        private set
+
+    // FILE
+    var file: File? = null
 
     val resultingActivityHandler = ResultingActivityHandler()
 
     init {
         state = state.copy(
-            username = user.username
+            username = user.username,
+            image = user.image
         )
+    }
+
+    fun saveImage() = viewModelScope.launch {
+        if (file != null) {
+            saveImageResponse = Response.Loading
+            val result = usersUseCases.saveImage(file!!)
+            saveImageResponse = result
+        }
     }
 
     fun pickImage() = viewModelScope.launch {
         val result = resultingActivityHandler.getContent("image/*")
         if (result != null) {
-            imageUri = result.toString()
+            file = ComposeFileProvider.createFileFromUri(context, result)
+            state = state.copy(image = result.toString())
         }
     }
 
     fun takePhoto() = viewModelScope.launch {
         val result = resultingActivityHandler.takePicturePreview()
         if (result != null) {
-            imageUri = ComposeFileProvider.getPathFromBitmap(context, result)
+            state = state.copy(image = ComposeFileProvider.getPathFromBitmap(context, result))
+            file = File(state.image)
         }
     }
 
-    fun onUpdate() {
+    fun onUpdate(url: String) {
         val myUser = User(
             id = user.id,
-            username = state.username
+            username = state.username,
+            image = url
         )
         update(myUser)
     }

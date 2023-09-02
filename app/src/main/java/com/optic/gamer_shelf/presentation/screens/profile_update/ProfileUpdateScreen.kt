@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import com.optic.gamer_shelf.presentation.components.DefaultTopBar
 import com.optic.gamer_shelf.presentation.screens.profile_update.components.ProfileUpdate
 import com.optic.gamer_shelf.presentation.screens.profile_update.components.ProfileUpdateContent
+import com.optic.gamer_shelf.presentation.screens.profile_update.components.SaveImage
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -29,5 +30,6 @@ fun ProfileEditScreen(
         },
         bottomBar = {}
     )
+    SaveImage()
     ProfileUpdate()
 }

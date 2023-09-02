@@ -71,7 +71,7 @@ fun ProfileUpdateContent(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.height(30.dp))
-                if (viewModel.imageUri != "") {
+                if (viewModel.state.image != "") {
                     AsyncImage(
                         modifier = Modifier
                             .width(100.dp)
@@ -80,7 +80,7 @@ fun ProfileUpdateContent(
                             .clickable {
                                 dialogState.value = true
                             },
-                        model = viewModel.imageUri,
+                        model = viewModel.state.image,
                         contentDescription = "Imagen seleccionada",
                         contentScale = ContentScale.Crop
                     )
@@ -137,7 +137,7 @@ fun ProfileUpdateContent(
                         .fillMaxWidth()
                         .padding(top = 20.dp, bottom = 40.dp),
                     text = "ACTUALIZAR DATOS",
-                    onClick = { viewModel.onUpdate() },
+                    onClick = { viewModel.saveImage() },
                 )
             }
         }
