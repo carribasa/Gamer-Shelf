@@ -4,12 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.optic.gamer_shelf.presentation.navigation.AppNavigation
+import com.optic.gamer_shelf.presentation.navigation.RootNavGraph
 import com.optic.gamermvvmapp.presentation.ui.theme.GamerShelfTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,17 +21,9 @@ class MainActivity : ComponentActivity() {
                 Surface(
                 ) {
                     navController = rememberNavController()
-                    AppNavigation(navController = navController)
+                    RootNavGraph(navController = navController)
                 }
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
 }

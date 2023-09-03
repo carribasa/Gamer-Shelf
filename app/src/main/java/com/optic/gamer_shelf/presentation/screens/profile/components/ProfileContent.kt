@@ -1,5 +1,7 @@
 package com.optic.gamer_shelf.presentation.screens.profile.components
 
+import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -29,8 +32,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.optic.gamer_shelf.R
+import com.optic.gamer_shelf.presentation.MainActivity
 import com.optic.gamer_shelf.presentation.components.DefaultButton
-import com.optic.gamer_shelf.presentation.navigation.AppScreen
+import com.optic.gamer_shelf.presentation.navigation.DetailsScreen
 import com.optic.gamer_shelf.presentation.screens.profile.ProfileViewModel
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -40,6 +44,9 @@ fun ProfileContent(
     navController: NavHostController,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
+
+    val activity = LocalContext.current as? Activity
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -105,7 +112,7 @@ fun ProfileContent(
                 viewModel.userData.image =
                     URLEncoder.encode(viewModel.userData.image, StandardCharsets.UTF_8.toString())
                 navController.navigate(
-                    route = AppScreen.ProfileEdit.passUser(viewModel.userData.toJson())
+                    route = DetailsScreen.ProfileEdit.passUser(viewModel.userData.toJson())
                 )
             }
         )
@@ -116,10 +123,8 @@ fun ProfileContent(
             icon = Icons.Default.ArrowBack,
             onClick = {
                 viewModel.logout()
-                navController.navigate(route = AppScreen.Login.route) {
-                    // Eliminar historial de pantallas tras logout
-                    popUpTo(AppScreen.Profile.route) { inclusive = true }
-                }
+                activity?.finish()
+                activity?.startActivity(Intent(activity, MainActivity::class.java))
             }
         )
     }
