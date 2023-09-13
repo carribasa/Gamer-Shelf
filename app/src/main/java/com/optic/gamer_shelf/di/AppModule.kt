@@ -7,16 +7,22 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.optic.gamer_shelf.core.Constants.POSTS
 import com.optic.gamer_shelf.core.Constants.USERS
 import com.optic.gamer_shelf.data.repository.AuthRepositoryImpl
+import com.optic.gamer_shelf.data.repository.PostsRepositoryImpl
 import com.optic.gamer_shelf.data.repository.UsersRepositoryImpl
 import com.optic.gamer_shelf.domain.repository.AuthRepository
+import com.optic.gamer_shelf.domain.repository.PostsRepository
 import com.optic.gamer_shelf.domain.repository.UsersRepository
 import com.optic.gamer_shelf.domain.use_cases.auth.AuthUseCases
 import com.optic.gamer_shelf.domain.use_cases.auth.GetCurrentUser
 import com.optic.gamer_shelf.domain.use_cases.auth.Login
 import com.optic.gamer_shelf.domain.use_cases.auth.Logout
 import com.optic.gamer_shelf.domain.use_cases.auth.Signup
+import com.optic.gamer_shelf.domain.use_cases.posts.CreatePost
+import com.optic.gamer_shelf.domain.use_cases.posts.GetPosts
+import com.optic.gamer_shelf.domain.use_cases.posts.PostsUseCases
 import com.optic.gamer_shelf.domain.use_cases.users.Create
 import com.optic.gamer_shelf.domain.use_cases.users.GetUserById
 import com.optic.gamer_shelf.domain.use_cases.users.SaveImage
@@ -26,6 +32,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -38,10 +45,21 @@ object AppModule {
     fun provideFirebaseStorage(): FirebaseStorage = FirebaseStorage.getInstance()
 
     @Provides
+    @Named(USERS)
     fun provideStorageUsersRef(storage: FirebaseStorage): StorageReference = storage.reference.child(USERS)
 
     @Provides
+    @Named(USERS)
     fun provideUsersRef(db: FirebaseFirestore): CollectionReference = db.collection(USERS)
+
+    @Provides
+    @Named(POSTS)
+    fun provideStoragePostsRef(storage: FirebaseStorage): StorageReference = storage.reference.child(POSTS)
+
+    @Provides
+    @Named(POSTS)
+    fun providePostsRef(db: FirebaseFirestore): CollectionReference = db.collection(POSTS)
+
 
     @Provides
     fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
@@ -51,6 +69,9 @@ object AppModule {
 
     @Provides
     fun provideUsersRepository(impl: UsersRepositoryImpl): UsersRepository = impl
+
+    @Provides
+    fun providePostsRepository(impl: PostsRepositoryImpl): PostsRepository = impl
 
     @Provides
     fun provideAuthUseCases(repository: AuthRepository) = AuthUseCases(
@@ -66,5 +87,11 @@ object AppModule {
         getUserById = GetUserById(repository),
         update = Update(repository),
         saveImage = SaveImage(repository)
+    )
+
+    @Provides
+    fun providePostsUseCases(repository: PostsRepository) = PostsUseCases(
+        create = CreatePost(repository),
+        getPosts = GetPosts(repository)
     )
 }

@@ -14,11 +14,12 @@ import com.optic.gamer_shelf.presentation.screens.login.LoginViewModel
 @Composable
 fun Login(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
 
-    when(val loginResponse = viewModel.loginResponse) {
+    when (val loginResponse = viewModel.loginResponse) {
         // MOSTRAR QUE SE ESTA REALIZANDO LA PETICION Y TODAVIA ESTA EN PROCESO
         Response.Loading -> {
             ProgressBar()
         }
+
         is Response.Success -> {
             LaunchedEffect(Unit) {
                 navController.navigate(route = Graph.HOME) {
@@ -26,10 +27,15 @@ fun Login(navController: NavHostController, viewModel: LoginViewModel = hiltView
                 }
             }
         }
+
         is Response.Failure -> {
-            Toast.makeText(LocalContext.current, loginResponse.exception?.message ?: "Error desconido", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                LocalContext.current,
+                loginResponse.exception?.message ?: "Error desconido",
+                Toast.LENGTH_LONG
+            ).show()
         }
+
         else -> {}
     }
-
 }

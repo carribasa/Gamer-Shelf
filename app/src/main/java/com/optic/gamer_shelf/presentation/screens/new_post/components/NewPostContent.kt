@@ -39,39 +39,39 @@ import com.optic.gamer_shelf.presentation.DialogCapturePicture
 import com.optic.gamer_shelf.presentation.components.DefaultTextField
 import com.optic.gamer_shelf.presentation.screens.new_post.NewPostViewModel
 import com.optic.gamermvvmapp.presentation.ui.theme.GamerShelfTheme
-import com.optic.gamermvvmapp.presentation.ui.theme.Red200
+import com.optic.gamermvvmapp.presentation.ui.theme.Red500
 
 @Composable
 fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
 
     val state = viewModel.state
     viewModel.resultingActivityHandler.handle()
-
-    var dialogState = remember {
-        mutableStateOf(false)
-    }
+    var dialogState = remember { mutableStateOf(false) }
 
     DialogCapturePicture(
         status = dialogState,
         takePhoto = { viewModel.takePhoto() },
         pickImage = { viewModel.pickImage() }
     )
-
     Box(
         modifier = Modifier
             .fillMaxWidth()
+
+
     ) {
+
         Column(
-            Modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+            horizontalAlignment = Alignment.CenterHorizontally,
+
+            ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(170.dp)
-                    .background(Red200)
+                    .background(Red500),
             ) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -86,10 +86,11 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
                                     dialogState.value = true
                                 },
                             model = viewModel.state.image,
-                            contentDescription = "Imagen seleccionada",
+                            contentDescription = "Selected image",
                             contentScale = ContentScale.Crop
                         )
-                    } else {
+                    }
+                    else {
                         Image(
                             modifier = Modifier
                                 .height(120.dp)
@@ -105,29 +106,35 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
                             fontWeight = FontWeight.Bold
                         )
                     }
+
                 }
+
             }
             DefaultTextField(
                 modifier = Modifier
-                    .padding(top = 25.dp, start = 20.dp, end = 20.dp)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(top = 25.dp, start = 20.dp, end = 20.dp),
                 value = state.name,
                 onValueChange = { viewModel.onNameInput(it) },
                 label = "Nombre del juego",
                 icon = Icons.Default.Face,
                 errorMsg = "",
-                validateField = { }
+                validateField = {
+
+                }
             )
             DefaultTextField(
                 modifier = Modifier
-                    .padding(top = 0.dp, start = 20.dp, end = 20.dp)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(top = 0.dp, start = 20.dp, end = 20.dp),
                 value = state.description,
                 onValueChange = { viewModel.onDescriptionInput(it) },
                 label = "Descripcion",
                 icon = Icons.Default.List,
                 errorMsg = "",
-                validateField = { }
+                validateField = {
+
+                }
             )
             Text(
                 modifier = Modifier.padding(vertical = 15.dp),
@@ -153,7 +160,7 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
                     Row() {
                         Text(
                             modifier = Modifier
-                                .width(110.dp)
+                                .width(105.dp)
                                 .padding(12.dp),
                             text = option.category
                         )
