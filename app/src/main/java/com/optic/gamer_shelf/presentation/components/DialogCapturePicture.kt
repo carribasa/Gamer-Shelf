@@ -1,4 +1,4 @@
-package com.optic.gamer_shelf.presentation
+package com.optic.gamer_shelf.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 fun DialogCapturePicture(
     status: MutableState<Boolean>,
     takePhoto: () -> Unit,
-    pickImage: () -> Unit
+    pickImage: () -> Unit,
 ) {
 
     if (status.value) {
@@ -32,7 +32,7 @@ fun DialogCapturePicture(
             backgroundColor = Color.White,
             title = {
                 Text(
-                    text = "Selecciona una opción",
+                    text = "Selecciona una opcion",
                     fontSize = 20.sp,
                     color = Color.Black
                 )
@@ -49,24 +49,21 @@ fun DialogCapturePicture(
                         onClick = {
                             status.value = false
                             pickImage()
-                        }) {
-                        Text(
-                            text = "Galeria"
-                        )
+                        }
+                    ) {
+                        Text(text = "Galeria")
                     }
                     Button(
                         modifier = Modifier.width(130.dp),
                         onClick = {
                             status.value = false
                             takePhoto()
-                        }) {
-                        Text(
-                            text = "Camara"
-                        )
+                        }
+                    ) {
+                        Text(text = "Camera")
                     }
                 }
             }
         )
     }
-
 }

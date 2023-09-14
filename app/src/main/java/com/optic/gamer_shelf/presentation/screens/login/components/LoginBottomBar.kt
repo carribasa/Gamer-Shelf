@@ -35,7 +35,7 @@ fun LoginBottomBar(navController: NavHostController) {
         Spacer(modifier = Modifier.width(7.dp))
         Text(
             modifier = Modifier.clickable {
-                navController.navigate(route = AuthScreen.SignUp.route)
+                navController.navigate(route = AuthScreen.Signup.route)
             },
             text = "REGISTRATE AQUI",
             color = Color.Red,

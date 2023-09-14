@@ -34,7 +34,7 @@ import com.optic.gamermvvmapp.presentation.ui.theme.Darkgray500
 import com.optic.gamermvvmapp.presentation.ui.theme.Red500
 
 @Composable
-fun SignupContent(navController: NavHostController,  viewModel: SignupViewModel = hiltViewModel()) {
+fun SignupContent(navController: NavHostController, viewModel: SignupViewModel = hiltViewModel()) {
 
     val state = viewModel.state
 

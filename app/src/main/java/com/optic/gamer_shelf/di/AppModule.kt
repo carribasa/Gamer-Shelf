@@ -21,8 +21,13 @@ import com.optic.gamer_shelf.domain.use_cases.auth.Login
 import com.optic.gamer_shelf.domain.use_cases.auth.Logout
 import com.optic.gamer_shelf.domain.use_cases.auth.Signup
 import com.optic.gamer_shelf.domain.use_cases.posts.CreatePost
+import com.optic.gamer_shelf.domain.use_cases.posts.DeleteLikePost
+import com.optic.gamer_shelf.domain.use_cases.posts.DeletePost
 import com.optic.gamer_shelf.domain.use_cases.posts.GetPosts
+import com.optic.gamer_shelf.domain.use_cases.posts.GetPostsByIdUser
+import com.optic.gamer_shelf.domain.use_cases.posts.LikePost
 import com.optic.gamer_shelf.domain.use_cases.posts.PostsUseCases
+import com.optic.gamer_shelf.domain.use_cases.posts.UpdatePost
 import com.optic.gamer_shelf.domain.use_cases.users.Create
 import com.optic.gamer_shelf.domain.use_cases.users.GetUserById
 import com.optic.gamer_shelf.domain.use_cases.users.SaveImage
@@ -60,7 +65,6 @@ object AppModule {
     @Named(POSTS)
     fun providePostsRef(db: FirebaseFirestore): CollectionReference = db.collection(POSTS)
 
-
     @Provides
     fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 
@@ -92,6 +96,12 @@ object AppModule {
     @Provides
     fun providePostsUseCases(repository: PostsRepository) = PostsUseCases(
         create = CreatePost(repository),
-        getPosts = GetPosts(repository)
+        getPosts = GetPosts(repository),
+        getPostsByIdUser = GetPostsByIdUser(repository),
+        deletePost = DeletePost(repository),
+        updatePost = UpdatePost(repository),
+        likePost = LikePost(repository),
+        deleteLikePost = DeleteLikePost(repository)
     )
+
 }

@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,8 +35,6 @@ import com.optic.gamer_shelf.presentation.MainActivity
 import com.optic.gamer_shelf.presentation.components.DefaultButton
 import com.optic.gamer_shelf.presentation.navigation.DetailsScreen
 import com.optic.gamer_shelf.presentation.screens.profile.ProfileViewModel
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
 @Composable
 fun ProfileContent(
@@ -51,15 +48,17 @@ fun ProfileContent(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Box() {
+
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp),
                 painter = painterResource(id = R.drawable.background),
-                contentDescription = "Imagen fondo controles",
+                contentDescription = "",
                 contentScale = ContentScale.Crop,
-                alpha = 0.5f
+                alpha = 0.6f
             )
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -78,18 +77,21 @@ fun ProfileContent(
                             .size(115.dp)
                             .clip(CircleShape),
                         model = viewModel.userData.image,
-                        contentDescription = "Imagen user",
+                        contentDescription = "User image",
                         contentScale = ContentScale.Crop
                     )
                 } else {
                     Image(
                         modifier = Modifier.size(115.dp),
                         painter = painterResource(id = R.drawable.user),
-                        contentDescription = "Imagen user"
+                        contentDescription = ""
                     )
                 }
+
             }
+
         }
+
         Spacer(modifier = Modifier.height(55.dp))
         Text(
             text = viewModel.userData.username,
@@ -109,10 +111,8 @@ fun ProfileContent(
             color = Color.White,
             icon = Icons.Default.Edit,
             onClick = {
-                viewModel.userData.image =
-                    URLEncoder.encode(viewModel.userData.image, StandardCharsets.UTF_8.toString())
                 navController.navigate(
-                    route = DetailsScreen.ProfileEdit.passUser(viewModel.userData.toJson())
+                    route = DetailsScreen.ProfileUpdate.passUser(viewModel.userData.toJson())
                 )
             }
         )
@@ -120,12 +120,12 @@ fun ProfileContent(
         DefaultButton(
             modifier = Modifier.width(250.dp),
             text = "Cerrar sesion",
-            icon = Icons.Default.ArrowBack,
             onClick = {
                 viewModel.logout()
                 activity?.finish()
                 activity?.startActivity(Intent(activity, MainActivity::class.java))
             }
         )
+
     }
 }

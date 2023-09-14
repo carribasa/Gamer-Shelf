@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.optic.gamer_shelf.presentation.screens.my_posts.MyPostScreen
+import com.optic.gamer_shelf.presentation.screens.my_posts.MyPostsScreen
 import com.optic.gamer_shelf.presentation.screens.posts.PostsScreen
 import com.optic.gamer_shelf.presentation.screens.profile.ProfileScreen
 
@@ -27,7 +27,7 @@ fun HomeBottomBarNavGraph(navController: NavHostController) {
         }
 
         composable(route = HomeBottomBarScreen.MyPosts.route) {
-            MyPostScreen(navController)
+            MyPostsScreen(navController)
         }
 
         composable(route = HomeBottomBarScreen.Profile.route) {
@@ -39,11 +39,13 @@ fun HomeBottomBarNavGraph(navController: NavHostController) {
     }
 }
 
+
 sealed class HomeBottomBarScreen(
     val route: String,
     var title: String,
-    var icon: ImageVector
+    val icon: ImageVector
 ) {
+
     object Posts : HomeBottomBarScreen(
         route = "posts",
         title = "Posts",

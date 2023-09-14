@@ -42,7 +42,7 @@ fun BottomBar(navController: NavHostController) {
 
     if (bottomBarDestination) {
 
-        BottomNavigation {
+        BottomNavigation() {
             screens.forEach { screen ->
                 AddItem(
                     screen = screen,
@@ -51,7 +51,9 @@ fun BottomBar(navController: NavHostController) {
                 )
             }
         }
+
     }
+
 }
 
 @Composable
@@ -82,5 +84,4 @@ fun RowScope.AddItem(
             }
         }
     )
-
 }

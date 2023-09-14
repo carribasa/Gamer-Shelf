@@ -32,7 +32,7 @@ fun DefaultTopBar(
                 IconButton(onClick = { navController?.popBackStack() }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "" ,
+                        contentDescription = "",
                         tint = Color.White
                     )
                 }

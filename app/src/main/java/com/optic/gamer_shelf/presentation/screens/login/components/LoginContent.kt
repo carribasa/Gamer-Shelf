@@ -29,7 +29,7 @@ import com.optic.gamer_shelf.presentation.components.DefaultButton
 import com.optic.gamer_shelf.presentation.components.DefaultTextField
 import com.optic.gamer_shelf.presentation.screens.login.LoginViewModel
 import com.optic.gamermvvmapp.presentation.ui.theme.Darkgray500
-import com.optic.gamermvvmapp.presentation.ui.theme.Red200
+import com.optic.gamermvvmapp.presentation.ui.theme.Red500
 
 @Composable
 fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
@@ -38,13 +38,14 @@ fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = h
 
     Box(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
     ) {
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(280.dp)
-                .background(Red200)
+                .background(Red500),
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -53,48 +54,45 @@ fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = h
                 Image(
                     modifier = Modifier.height(130.dp),
                     painter = painterResource(id = R.drawable.control),
-                    contentDescription = "Imagen Controlador XboX"
+                    contentDescription = "Control de xbox 360"
                 )
                 Text(
                     text = "FIREBASE MVVM"
                 )
             }
+
         }
         Card(
-            modifier = Modifier
-                .padding(
-                    start = 40.dp,
-                    end = 40.dp,
-                    top = 200.dp
-                ),
+            modifier = Modifier.padding(start = 40.dp, end = 40.dp, top = 200.dp),
             backgroundColor = Darkgray500
         ) {
+
             Column(
-                Modifier.padding(horizontal = 20.dp)
+                modifier = Modifier.padding(horizontal = 20.dp)
             ) {
                 Text(
-                    modifier = Modifier.padding(
-                        top = 40.dp,
-                        bottom = 0.dp,
-                        start = 0.dp,
-                        end = 0.dp
-                    ),
+                    modifier = Modifier
+                        .padding(
+                            top = 40.dp,
+                            bottom = 0.dp,
+                            start = 0.dp,
+                            end = 0.dp
+                        ),
                     text = "LOGIN",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = "Por favor, inicia sesión para continuar",
+                    text = "Por favor inicia sesion para continuar",
                     fontSize = 12.sp,
                     color = Color.Gray
                 )
-                // Campo email
                 DefaultTextField(
                     modifier = Modifier.padding(top = 25.dp),
                     value = state.email,
                     onValueChange = { viewModel.onEmailInput(it) },
-                    label = "Email",
+                    label = "Correo electronico",
                     icon = Icons.Default.Email,
                     keyboardType = KeyboardType.Email,
                     errorMsg = viewModel.emailErrMsg,
@@ -102,9 +100,8 @@ fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = h
                         viewModel.validateEmail()
                     }
                 )
-                // Campo contraseña
                 DefaultTextField(
-                    modifier = Modifier.padding(top = 5.dp),
+                    modifier = Modifier.padding(top = 0.dp),
                     value = state.password,
                     onValueChange = { viewModel.onPasswordInput(it) },
                     label = "Contraseña",
@@ -115,7 +112,7 @@ fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = h
                         viewModel.validatePassword()
                     }
                 )
-                // Boton Iniciar Sesion
+
                 DefaultButton(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -130,15 +127,3 @@ fun LoginContent(navController: NavHostController, viewModel: LoginViewModel = h
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun PreviewLoginContent() {
-//    GamerShelfTheme(darkTheme = true) {
-//        Surface(
-//            color = MaterialTheme.colors.background
-//        ) {
-//            LoginContent()
-//        }
-//    }
-//}

@@ -15,19 +15,14 @@ fun SaveImage(viewModel: ProfileUpdateViewModel = hiltViewModel()) {
         Response.Loading -> {
             ProgressBar()
         }
-
         is Response.Success -> {
             viewModel.onUpdate(response.data)
         }
-
         is Response.Failure -> {
-            Toast.makeText(
-                LocalContext.current,
-                response.exception?.message ?: "Error desconocido",
-                Toast.LENGTH_LONG
-            ).show()
+            Toast.makeText(LocalContext.current, response.exception?.message ?: "Error desconcido", Toast.LENGTH_LONG).show()
         }
 
         else -> {}
     }
+
 }

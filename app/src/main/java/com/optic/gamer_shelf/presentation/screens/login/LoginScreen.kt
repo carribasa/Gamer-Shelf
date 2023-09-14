@@ -28,8 +28,9 @@ fun LoginScreen(navController: NavHostController) {
             LoginBottomBar(navController)
         }
     )
-    // MANEJAR ESTADO DE LA PETICION DE LOGIN
+    // MANEJAR EL ESTADO DE LA PETICION DE LOGIN
     Login(navController = navController)
+
 }
 
 @Preview(showBackground = true, showSystemUi = true)

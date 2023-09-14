@@ -23,6 +23,7 @@ fun NewPost(viewModel: NewPostViewModel = hiltViewModel()) {
         is Response.Failure -> {
             Toast.makeText(LocalContext.current, response.exception?.message ?: "Error desconido", Toast.LENGTH_LONG).show()
         }
+
         else -> {}
     }
 

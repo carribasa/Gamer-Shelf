@@ -16,7 +16,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignupViewModel @Inject constructor(private val authUseCases: AuthUseCases, private val usersUseCases: UsersUseCases): ViewModel() {
+class SignupViewModel @Inject constructor(
+    private val authUseCases: AuthUseCases,
+    private val usersUseCases: UsersUseCases
+) : ViewModel() {
 
     // STATE FORM
     var state by mutableStateOf(SignupState())
@@ -100,8 +103,7 @@ class SignupViewModel @Inject constructor(private val authUseCases: AuthUseCases
         if (state.password == state.confirmPassword) {
             isconfirmPassword = true
             confirmPasswordErrMsg = ""
-        }
-        else {
+        } else {
             isconfirmPassword = false
             confirmPasswordErrMsg = "Las contraseñas no coinciden"
         }
@@ -112,8 +114,7 @@ class SignupViewModel @Inject constructor(private val authUseCases: AuthUseCases
         if (state.username.length >= 5) {
             isUsernameValid = true
             usernameErrMsg = ""
-        }
-        else {
+        } else {
             isUsernameValid = false
             usernameErrMsg = "Al menos 5 caracteres"
         }
@@ -126,8 +127,7 @@ class SignupViewModel @Inject constructor(private val authUseCases: AuthUseCases
         if (Patterns.EMAIL_ADDRESS.matcher(state.email).matches()) {
             isEmailValid = true
             emailErrMsg = ""
-        }
-        else {
+        } else {
             isEmailValid = false
             emailErrMsg = "El email no es valido"
         }
@@ -139,8 +139,7 @@ class SignupViewModel @Inject constructor(private val authUseCases: AuthUseCases
         if (state.password.length >= 6) {
             isPasswordValid = true
             passwordErrMsg = ""
-        }
-        else {
+        } else {
             isPasswordValid = false
             passwordErrMsg = "Al menos 6 caracteres"
         }

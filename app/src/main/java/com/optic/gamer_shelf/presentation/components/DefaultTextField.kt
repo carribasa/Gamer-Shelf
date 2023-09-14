@@ -8,6 +8,7 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -28,7 +29,8 @@ fun DefaultTextField(
     hideText: Boolean = false,
     errorMsg: String = ""
 ) {
-    Column {
+
+    Column() {
         OutlinedTextField(
             modifier = modifier,
             value = value,
@@ -40,10 +42,11 @@ fun DefaultTextField(
             label = {
                 Text(label)
             },
-            trailingIcon = {
+            leadingIcon = {
                 Icon(
                     imageVector = icon,
-                    contentDescription = "Icono contraseña login"
+                    contentDescription = "",
+                    tint = Color.White
                 )
             },
             visualTransformation = if (hideText) PasswordVisualTransformation() else VisualTransformation.None
@@ -55,5 +58,4 @@ fun DefaultTextField(
             color = Red700
         )
     }
-
 }

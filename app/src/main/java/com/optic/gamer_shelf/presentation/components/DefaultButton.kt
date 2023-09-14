@@ -13,17 +13,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.optic.gamermvvmapp.presentation.ui.theme.Red200
+import com.optic.gamermvvmapp.presentation.ui.theme.Red500
 
 @Composable
 fun DefaultButton(
     modifier: Modifier,
     text: String,
     onClick: () -> Unit,
-    color: Color = Red200,
+    color: Color = Red500,
     icon: ImageVector = Icons.Default.ArrowForward,
     enabled: Boolean = true
 ) {
+
     Button(
         modifier = modifier,
         onClick = { onClick() },
@@ -32,10 +33,9 @@ fun DefaultButton(
     ) {
         Icon(
             imageVector = icon,
-            contentDescription = "Icono flecha boton"
+            contentDescription = ""
         )
         Spacer(modifier = Modifier.width(10.dp))
         Text(text = text)
     }
-
 }

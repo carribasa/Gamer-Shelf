@@ -25,6 +25,7 @@ class ProfileViewModel @Inject constructor(
     init {
         getUserById()
     }
+
     private fun getUserById() = viewModelScope.launch {
         usersUseCases.getUserById(currentUser!!.uid).collect() {
             userData = it
@@ -34,5 +35,4 @@ class ProfileViewModel @Inject constructor(
     fun logout() {
         authUseCases.logout()
     }
-
 }

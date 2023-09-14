@@ -31,11 +31,13 @@ class ComposeFileProvider: FileProvider(R.xml.file_paths) {
                 return null
             }
         }
+
         fun getImageUri(context: Context): Uri {
+
             val directory = File(context.cacheDir, "images")
             directory.mkdirs()
             val file = File.createTempFile(
-                "selected_image",
+                "selected_image_",
                 ".jpg",
                 directory
             )
@@ -46,6 +48,7 @@ class ComposeFileProvider: FileProvider(R.xml.file_paths) {
                 file
             )
         }
+
         fun getPathFromBitmap(context: Context, bitmap: Bitmap): String {
             val wrapper = ContextWrapper(context)
             var file = wrapper.getDir("Images", Context.MODE_PRIVATE)
@@ -58,4 +61,5 @@ class ComposeFileProvider: FileProvider(R.xml.file_paths) {
         }
 
     }
+
 }

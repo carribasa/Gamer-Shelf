@@ -12,11 +12,12 @@ import com.optic.gamer_shelf.presentation.screens.profile_update.components.Save
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun ProfileEditScreen(
+fun ProfileUpdateScreen(
     navController: NavHostController,
     user: String
 ) {
-    Log.d("ProfileEditScreen", "Usuario:$user")
+    Log.d("ProfileEditScreen", "Usuario: $user")
+
     Scaffold(
         topBar = {
             DefaultTopBar(
@@ -26,7 +27,7 @@ fun ProfileEditScreen(
             )
         },
         content = {
-            ProfileUpdateContent(navController)
+            ProfileUpdateContent(navController = navController)
         },
         bottomBar = {}
     )

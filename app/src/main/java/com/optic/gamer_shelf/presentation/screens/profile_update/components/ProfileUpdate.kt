@@ -21,6 +21,7 @@ fun ProfileUpdate(viewModel: ProfileUpdateViewModel = hiltViewModel()) {
         is Response.Failure -> {
             Toast.makeText(LocalContext.current, updateResponse.exception?.message ?: "Error desconocido" , Toast.LENGTH_LONG).show()
         }
+
         else -> {}
     }
 

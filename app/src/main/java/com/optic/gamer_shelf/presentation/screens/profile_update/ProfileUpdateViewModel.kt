@@ -23,7 +23,7 @@ class ProfileUpdateViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val usersUseCases: UsersUseCases,
     @ApplicationContext private val context: Context
-) : ViewModel() {
+): ViewModel() {
 
     // STATE FORM
     var state by mutableStateOf(ProfileUpdateState())
@@ -49,10 +49,12 @@ class ProfileUpdateViewModel @Inject constructor(
     val resultingActivityHandler = ResultingActivityHandler()
 
     init {
+        // SET ARGUMENTS
         state = state.copy(
             username = user.username,
             image = user.image
         )
+
     }
 
     fun saveImage() = viewModelScope.launch {
@@ -101,7 +103,8 @@ class ProfileUpdateViewModel @Inject constructor(
     fun validateUsername() {
         if (state.username.length >= 5) {
             usernameErrMsg = ""
-        } else {
+        }
+        else {
             usernameErrMsg = "Al menos 5 caracteres"
         }
     }

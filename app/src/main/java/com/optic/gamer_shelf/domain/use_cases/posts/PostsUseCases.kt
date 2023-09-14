@@ -1,6 +1,11 @@
 package com.optic.gamer_shelf.domain.use_cases.posts
 
-class PostsUseCases(
+data class PostsUseCases(
     val create: CreatePost,
-    val getPosts: GetPosts
+    val getPosts: GetPosts,
+    val getPostsByIdUser: GetPostsByIdUser,
+    val deletePost: DeletePost,
+    val updatePost: UpdatePost,
+    val likePost: LikePost,
+    val deleteLikePost: DeleteLikePost
 )

@@ -1,5 +1,6 @@
 package com.optic.gamer_shelf.presentation.screens.profile_update.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -46,20 +47,19 @@ fun ProfileUpdateContent(
 
     val state = viewModel.state
     viewModel.resultingActivityHandler.handle()
-    var dialogState = remember {
-        mutableStateOf(false)
-    }
+    var dialogState = remember { mutableStateOf(false) }
 
     DialogCapturePicture(
         status = dialogState,
         takePhoto = { viewModel.takePhoto() },
         pickImage = { viewModel.pickImage() }
     )
-
     Box(
         modifier = Modifier
             .fillMaxWidth(),
-    ) {
+
+
+        ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -71,17 +71,19 @@ fun ProfileUpdateContent(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.height(30.dp))
+
                 if (viewModel.state.image != "") {
+                    Log.d("ProfileUpdateContent", "image: ${viewModel.state.image}")
                     AsyncImage(
                         modifier = Modifier
-                            .width(100.dp)
                             .height(100.dp)
+                            .width(100.dp)
                             .clip(CircleShape)
                             .clickable {
                                 dialogState.value = true
                             },
                         model = viewModel.state.image,
-                        contentDescription = "Imagen seleccionada",
+                        contentDescription = "Selected image",
                         contentScale = ContentScale.Crop
                     )
                 } else {
@@ -95,7 +97,9 @@ fun ProfileUpdateContent(
                         contentDescription = "Imagen de usuario"
                     )
                 }
+
             }
+
         }
         Card(
             modifier = Modifier.padding(start = 40.dp, end = 40.dp, top = 170.dp),
@@ -132,6 +136,7 @@ fun ProfileUpdateContent(
                     errorMsg = viewModel.usernameErrMsg,
                     validateField = { viewModel.validateUsername() }
                 )
+
                 DefaultButton(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -142,4 +147,5 @@ fun ProfileUpdateContent(
             }
         }
     }
+
 }

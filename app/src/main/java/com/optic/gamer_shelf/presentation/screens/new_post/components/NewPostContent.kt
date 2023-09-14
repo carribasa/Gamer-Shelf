@@ -6,7 +6,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,9 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
@@ -29,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -38,7 +34,6 @@ import com.optic.gamer_shelf.R
 import com.optic.gamer_shelf.presentation.DialogCapturePicture
 import com.optic.gamer_shelf.presentation.components.DefaultTextField
 import com.optic.gamer_shelf.presentation.screens.new_post.NewPostViewModel
-import com.optic.gamermvvmapp.presentation.ui.theme.GamerShelfTheme
 import com.optic.gamermvvmapp.presentation.ui.theme.Red500
 
 @Composable
@@ -89,8 +84,7 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
                             contentDescription = "Selected image",
                             contentScale = ContentScale.Crop
                         )
-                    }
-                    else {
+                    } else {
                         Image(
                             modifier = Modifier
                                 .height(120.dp)
@@ -174,19 +168,6 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
                     }
                 }
             }
-        }
-    }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun DefaultNewPostContent() {
-    GamerShelfTheme(darkTheme = true) {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
-        ) {
-            NewPostContent()
         }
     }
 }

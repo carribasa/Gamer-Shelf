@@ -27,6 +27,7 @@ fun SignUp(navController: NavHostController, viewModel: SignupViewModel = hiltVi
         is Response.Failure -> {
             Toast.makeText(LocalContext.current, signupResponse.exception?.message ?: "Error desconocido", Toast.LENGTH_LONG).show()
         }
+
         else -> {}
     }
 }
