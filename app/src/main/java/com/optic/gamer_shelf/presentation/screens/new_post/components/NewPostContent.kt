@@ -154,7 +154,7 @@ fun NewPostContent(viewModel: NewPostViewModel = hiltViewModel()) {
                     Row() {
                         Text(
                             modifier = Modifier
-                                .width(105.dp)
+                                .width(110.dp)
                                 .padding(12.dp),
                             text = option.category
                         )
