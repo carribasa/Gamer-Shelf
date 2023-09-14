@@ -32,9 +32,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.optic.gamer_shelf.R
-import com.optic.gamer_shelf.presentation.DialogCapturePicture
 import com.optic.gamer_shelf.presentation.components.DefaultButton
 import com.optic.gamer_shelf.presentation.components.DefaultTextField
+import com.optic.gamer_shelf.presentation.components.DialogCapturePicture
 import com.optic.gamer_shelf.presentation.screens.profile_update.ProfileUpdateViewModel
 import com.optic.gamermvvmapp.presentation.ui.theme.Darkgray500
 import com.optic.gamermvvmapp.presentation.ui.theme.Red500

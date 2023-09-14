@@ -31,8 +31,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.optic.gamer_shelf.R
-import com.optic.gamer_shelf.presentation.DialogCapturePicture
 import com.optic.gamer_shelf.presentation.components.DefaultTextField
+import com.optic.gamer_shelf.presentation.components.DialogCapturePicture
 import com.optic.gamer_shelf.presentation.screens.update_post.UpdatePostViewModel
 import com.optic.gamermvvmapp.presentation.ui.theme.Red500
 
